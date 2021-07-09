@@ -35,6 +35,7 @@ plt.plot(w_list,mse_list)
 plt.ylabel("Loss")
 plt.xlabel("w")
 plt.show()
+
 #np.arange()
 # 1）一个参数时，参数值为终点，起点取默认值0，步长取默认值1。
 # 2）两个参数时，第一个参数为起点，第二个参数为终点，步长取默认值1。
