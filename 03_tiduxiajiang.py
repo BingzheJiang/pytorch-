@@ -34,7 +34,7 @@ for epoch in range(100): #range(100) 0-99
     cost_val=cost(x_data,y_data)
     grad_val=gradient(x_data,y_data)
     w-=0.01*grad_val #0.01 learning rate 更新梯度
-    print('epoch:',epoch,'w=','loss=',cost_val)
+    print('epoch:',epoch,'w=',w,'loss=',cost_val)
     epoch_list.append(epoch)
     cost_list.append(cost_val)
 
