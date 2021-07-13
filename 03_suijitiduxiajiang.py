@@ -20,7 +20,7 @@ def loss(x,y):
     y_pred=forward(x)
     return (y_pred-y)**2
 
-#定义梯度计算函数
+#定义梯度计算函数,loss对权重求偏导数
 def gradient(x,y):
     return 2*x*(x*w-y)
 
