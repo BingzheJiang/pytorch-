@@ -9,4 +9,9 @@ import matplotlib.pyplot as plt
 
 #prepare dataset
 xy=np.loadtxt('diabetes.csv',delimiter=',',dtype=np.float32)
-
+# print(xy)
+x_data=torch.from_numpy(xy[:,:-1])# 第一个‘：’是指读取所有行，第二个‘：’是指从第一列开始，最后一列不要
+# print(x_data)
+# print(x_data.type())
+y_data=torch.from_numpy(xy[:,[-1]])# [-1] 最后得到的是个矩阵
+print(y_data)
