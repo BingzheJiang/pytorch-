@@ -29,3 +29,8 @@ print( X[:,1])
 print(X[1,:])
 #输出：[2 3]
 https://blog.csdn.net/doubledog1112/article/details/85095571
+
+BCEloss:https://blog.csdn.net/qq_22210253/article/details/85222093
+sigmoid函数:https://www.jianshu.com/p/506595ec4b58
+SGD随机梯度下降:https://zhuanlan.zhihu.com/p/27609238
+深度学习优化函数详解:https://blog.csdn.net/qq_26591517/article/details/79679192
