@@ -89,3 +89,6 @@ if __name__ == '__main__':
     for epoch in range(10):
         train(epoch)
         test()
+
+#transforms.Compose()类详解：串联多个transform操作
+#https://blog.csdn.net/wangkaidehao/article/details/104520022/

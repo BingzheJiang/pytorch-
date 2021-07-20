@@ -101,3 +101,28 @@ import math
 # l1=criterion(Y_pred1,Y)
 # l2=criterion(Y_pred2,Y)
 # print("Batch Loss1=",l1.data,"\nBatch Loss2=",l2.data)
+
+#高阶函数，一个函数可以接受另一个函数作为参数
+# def add(x,y,f):
+#     return f(x)+f(y)
+#
+# print(add(-5,6,abs))
+
+#可变参数求和
+# def calc_sum(*args):
+#     ax=0
+#     for n in args:
+#         ax=ax+n
+#     return ax
+#
+# print(calc_sum(1,2,3,4,5))
+
+def lazy_sum(*args):
+    def sum():
+        ax=0
+        for n in args:
+            ax=ax+n
+        return ax
+    return sum
+
+f=lazy_sum(1,3,5,7,9)
