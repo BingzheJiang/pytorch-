@@ -30,6 +30,35 @@ print(X[1,:])
 #输出：[2 3]
 https://blog.csdn.net/doubledog1112/article/details/85095571
 
+#计算交叉熵损失
+import torch
+y=torch.LongTensor([0])
+z=torch.Tensor([[0.2,0.1,-0.1]])
+criterion=torch.nn.CrossEntropyLoss()
+loss=criterion(z,y)
+print(loss)
+
+import numpy as np
+y1=np.array([1,0,0])
+z1=np.array([0.2,0.1,-0.1])
+y_pred=np.exp(z1)/np.exp(z1).sum()
+loss1=(-y1*np.log(y_pred)).sum()
+print(loss1)
+
+import torch
+criterion =torch.nn.CrossEntropyLoss()
+Y=torch.LongTensor([2,0,1])
+Y_pred1=torch.Tensor([[0.1,0.2,0.9],
+                      [1.1,0.1,0.2],
+                      [0.2,2.1,0.1]])
+Y_pred2=torch.Tensor([[0.8,0.2,0.3],
+                      [0.2,0.3,0.5],
+                      [0.2,0.2,0.5]])
+l1=criterion(Y_pred1,Y)
+l2=criterion(Y_pred2,Y)
+print("Batch Loss1=",l1.data,"\nBatch Loss2=",l2.data)
+
+
 BCEloss:https://blog.csdn.net/qq_22210253/article/details/85222093
 sigmoid函数:https://www.jianshu.com/p/506595ec4b58
 SGD随机梯度下降:https://zhuanlan.zhihu.com/p/27609238
