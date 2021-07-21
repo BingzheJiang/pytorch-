@@ -46,7 +46,8 @@ model = Net()
 
 # construct loss and optimizer
 criterion = torch.nn.CrossEntropyLoss()
-optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.5)
+optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.5)#因为网络大了，所以使用更高的优化函数，momentum是冲量
+
 
 
 # training cycle forward, backward, update
@@ -79,7 +80,7 @@ def test():
         for data in test_loader:
             images, labels = data
             outputs = model(images)
-            _, predicted = torch.max(outputs.data, dim=1)  # dim = 1 列是第0个维度，行是第1个维度
+            _, predicted = torch.max(outputs.data, dim=1)  # dim = 1 列是第0个维度，行是第1个维度 沿着第1个维度找最大值的下标，返回值有两个，每一行最大值，每一行最大值下标
             total += labels.size(0)
             correct += (predicted == labels).sum().item()  # 张量之间的比较运算
     print('accuracy on test set: %d %% ' % (100 * correct / total))
