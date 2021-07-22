@@ -79,7 +79,7 @@ tensor([1, 2, 2])
 torch.Size([3])
 
 
-
+对维度dim的理解：https://blog.csdn.net/qq_41375609/article/details/106078474
 BCEloss:https://blog.csdn.net/qq_22210253/article/details/85222093
 sigmoid函数:https://www.jianshu.com/p/506595ec4b58
 SGD随机梯度下降:https://zhuanlan.zhihu.com/p/27609238
