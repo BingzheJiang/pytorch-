@@ -1,4 +1,4 @@
-#RNN如何运转
+#RNN如何运转,使用RNN CELL
 import torch
 
 batch_size=1

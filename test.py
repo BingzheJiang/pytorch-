@@ -127,3 +127,23 @@ import math
 #
 # f=lazy_sum(1,3,5,7,9)
 # print(f())
+
+#列表生成式
+# a=[x*x for x in range(1,11)]
+# print(a)
+# charater=[[1,2,3,4],
+#           [2,3,4,5],
+#           [3,4,5,6]]
+# input=[0,1,0,1,2]
+# a=[charater[x] for x  in  input]
+# print(a)
+# import torch
+# loss = torch.nn.CrossEntropyLoss()
+# input = torch.randn(3, 5, requires_grad=True)
+# print(input)
+# print(input.shape)
+# target = torch.empty(3, dtype=torch.long).random_(5)
+# print(target)
+# print(target.shape)
+# output = loss(input, target)
+# output.backward()

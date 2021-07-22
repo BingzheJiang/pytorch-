@@ -59,7 +59,29 @@ l2=criterion(Y_pred2,Y)
 print("Batch Loss1=",l1.data,"\nBatch Loss2=",l2.data)
 
 
+#交叉熵举例
+import torch
+loss = torch.nn.CrossEntropyLoss()
+input = torch.randn(3, 5, requires_grad=True)
+print(input)
+print(input.shape)
+target = torch.empty(3, dtype=torch.long).random_(5)
+print(target)
+print(target.shape)
+output = loss(input, target)
+output.backward()
+
+tensor([[ 0.5934, -0.8533, -1.1076,  0.0284, -1.0160],
+        [-0.5386,  0.0046,  0.0180, -0.5689, -1.4313],
+        [ 0.8632,  0.0926, -1.2669, -0.8354, -0.7605]], requires_grad=True)
+torch.Size([3, 5])
+tensor([1, 2, 2])
+torch.Size([3])
+
+
+
 BCEloss:https://blog.csdn.net/qq_22210253/article/details/85222093
 sigmoid函数:https://www.jianshu.com/p/506595ec4b58
 SGD随机梯度下降:https://zhuanlan.zhihu.com/p/27609238
 深度学习优化函数详解:https://blog.csdn.net/qq_26591517/article/details/79679192
+CrossEntropyLoss():https://zhuanlan.zhihu.com/p/98785902
