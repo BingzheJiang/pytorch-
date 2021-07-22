@@ -147,3 +147,22 @@ import math
 # print(target.shape)
 # output = loss(input, target)
 # output.backward()
+
+import torch
+# word1=torch.LongTensor([0,1,2])
+# word2=torch.LongTensor([3,1,2])
+# embedding=torch.nn.Embedding(4,5)
+#
+# print(embedding.weight)
+# print('word1:')
+# print(word1)
+# print(embedding(word1))
+# b=torch.rand(3,3)
+# print(b)
+# b=b.long()
+# print(b)
+x_data = [1, 0, 2, 2, 3]
+inputs=torch.LongTensor(x_data)
+embedding=torch.nn.Embedding(4,10)
+print(inputs)
+print(embedding(inputs))

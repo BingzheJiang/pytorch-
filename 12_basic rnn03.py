@@ -78,7 +78,7 @@ def RNN_module():
         outputs = net(inputs)
         # print(outputs.shape)
         # print(labels.shape)
-        loss = criterion(outputs, labels)#output 5,4  label 5
+        loss = criterion(outputs, labels)#output 5,4  labeL 5
         loss.backward()
         optimizer.step()
 

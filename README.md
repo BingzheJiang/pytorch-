@@ -85,3 +85,5 @@ sigmoid函数:https://www.jianshu.com/p/506595ec4b58
 SGD随机梯度下降:https://zhuanlan.zhihu.com/p/27609238
 深度学习优化函数详解:https://blog.csdn.net/qq_26591517/article/details/79679192
 CrossEntropyLoss():https://zhuanlan.zhihu.com/p/98785902
+Embedding:http://t.zoukankan.com/zyb993963526-p-13785916.html
+
