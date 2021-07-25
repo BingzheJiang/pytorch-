@@ -38,7 +38,7 @@ class NameDataset():         #处理数据集
         self.country_num = len(self.country_list)#得到国家集合的长度18
 
     def __getitem__(self, index):
-        return self.names[index], self.country_dict[self.countries[index]]
+        return self.names[index], self.country_dict[self.countries[index]]#使用序号获得 名字字符串 国家编号
 
     def __len__(self):
         return self.len
@@ -49,7 +49,7 @@ class NameDataset():         #处理数据集
             country_dict[country_name] = idx                        #把对应的国家名和序号存入字典
         return country_dict
 
-    def idx2country(self,index):            #返回索引对应国家名
+    def idx2country(self,index):            #返回索引对应国家名，比如将来给一个名字，得到国家的分类，把这个分类放进来就得到了国家的名字
         return self.country_list(index)
 
     def getCountrysNum(self):               #返回国家数量
@@ -73,11 +73,12 @@ class RNNClassifier(torch.nn.Module):
         super(RNNClassifier, self).__init__()
         self.hidden_size = hidden_size                  #包括下面的n_layers在GRU模型里使用
         self.n_layers = n_layers
-        self.n_directions = 2 if bidirectional else 1
+        self.n_directions = 2 if bidirectional else 1#双向rnn
 
         self.embedding = torch.nn.Embedding(input_size, hidden_size)#input.shape=(seqlen,batch) output.shape=(seqlen,batch,hiddensize)
         self.gru = torch.nn.GRU(hidden_size, hidden_size, n_layers, bidirectional=bidirectional)
                                 #输入维度       输出维度      层数        说明单向还是双向
+                                #(seqlen,batch,hiddensize)  (seqlen,batch,hiddensize*n_directions)
         self.fc = torch.nn.Linear(hidden_size * self.n_directions, output_size)#双向GRU会输出两个hidden，维度需要✖2，要接一个线性层
 
     def forward(self, input, seq_lengths):
@@ -100,7 +101,7 @@ class RNNClassifier(torch.nn.Module):
         fc_output = self.fc(hidden_cat)
         return fc_output
 
-    def _init_hidden(self,batch_size):
+    def _init_hidden(self,batch_size):#根据输出的barchsize构建全零的张量
         hidden = torch.zeros(self.n_layers * self.n_directions, batch_size, self.hidden_size)
         return  create_tensor(hidden)
 
@@ -139,8 +140,8 @@ def trainModel():
         output = classifier(inputs, seq_lengths)    #把输入和序列放入分类器
         loss = criterion(output, target)            #计算损失
 
-        loss.backward()
-        optimizer.step()
+        loss.backward()#反向传播
+        optimizer.step()#更新
         total_loss += loss.item()
 
         #打印输出结果
@@ -158,7 +159,7 @@ def testModel():
     correct = 0
     total = len(testset)
 
-    with torch.no_grad():
+    with torch.no_grad():#test；里面不需要求梯度
         for i, (names, countries) in enumerate(testloader, 1):
             inputs, seq_lengths, target = make_tensors(names, countries)    #返回处理后的名字ASCII码 重新排序的长度和国家列表
             output = classifier(inputs, seq_lengths)                        #输出
