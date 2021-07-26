@@ -161,8 +161,49 @@ import torch
 # print(b)
 # b=b.long()
 # print(b)
-x_data = [1, 0, 2, 2, 3]
-inputs=torch.LongTensor(x_data)
-embedding=torch.nn.Embedding(4,10)
-print(inputs)
-print(embedding(inputs))
+# x_data = [1, 0, 2, 2, 3]
+# inputs=torch.LongTensor(x_data)
+# embedding=torch.nn.Embedding(4,10)
+# print(inputs)
+# print(embedding(inputs))
+# import gzip
+# import csv
+# file='./data/names_train.csv.gz'
+# with gzip.open(file,'rt') as f:
+#     f_csv=csv.reader(f)
+#     # l=list(f_csv)
+#     # print(l)
+#     # for row in f_csv:
+#     #     print(row[1])
+#     rows=list(f_csv)
+# names=[row[0] for row in rows]
+# countrys=[row[1] for row in rows]
+# # print(names)
+# # print(countrys)
+# countrys_list=sorted(set(countrys))
+#
+# countrys_dict=dict()
+# t=0
+# for i in  countrys_list:
+#     countrys_dict[i]=t
+#     t+=1
+# print(countrys_dict)
+#
+# country_dict = dict()                                       #创建空字典
+# for idx, country_name in enumerate(countrys_list):    #取出序号和对应国家名
+#     country_dict[country_name] = idx                        #把对应的国家名和序号存入字典
+# print(names[0])
+# print(country_dict[countrys[0]])
+
+# import torch
+#
+# temp=torch.rand(4,6,8)
+# print(temp)
+# print(temp.shape)
+# print(temp[-1])
+# print(temp[-2])
+# print(temp[-1].shape)
+# print(temp[-2].shape)
+
+
+

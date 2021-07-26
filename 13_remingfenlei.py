@@ -9,6 +9,7 @@ import torch
 import  time
 import csv
 import gzip
+from torch.utils.data import Dataset
 from  torch.utils.data import DataLoader
 import datetime
 import matplotlib.pyplot as plt
@@ -16,16 +17,16 @@ import numpy as np
 
 # Parameters
 HIDDEN_SIZE = 100
-BATCH_SIZE = 256
-N_LAYER = 2
+BATCH_SIZE = 256 #首先确定这个值
+N_LAYER = 1
 N_EPOCHS = 100
 N_CHARS = 128
 USE_GPU = False #有GPU使用True
 
-class NameDataset():         #处理数据集
+class NameDataset(Dataset):         #处理数据集
     def __init__(self, is_train_set=True):
         filename = 'data/names_train.csv.gz' if is_train_set else 'data/names_test.csv.gz'
-        with gzip.open(filename, 'rt') as f:    #打开压缩文件并将变量名设为为f
+        with gzip.open(filename, 'rt') as f:    #打开压缩文件并将变量名设为为f  rt文本文件用二进制读取用‘rt’
             reader = csv.reader(f)              #读取表格文件
             rows = list(reader)#元组（name,conuntry）
         self.names = [row[0] for row in rows]   #取出人名，用一个列表生成式
@@ -60,7 +61,7 @@ trainloader = DataLoader(trainset, batch_size=BATCH_SIZE,shuffle=True)
 testset = NameDataset(is_train_set=False)
 testloader = DataLoader(testset, batch_size=BATCH_SIZE,shuffle=False)
 
-N_COUNTRY = trainset.getCountrysNum()       #模型输出大小
+N_COUNTRY = trainset.getCountrysNum()       #模型输出大小,国家的数量
 
 def create_tensor(tensor):#判断是否使用GPU 使用的话把tensor搬到GPU上去
     if USE_GPU:
@@ -94,8 +95,10 @@ class RNNClassifier(torch.nn.Module):
         #需要提前把输入按有效值长度降序排列 再对输入做嵌入，然后按每个输入len（seq——lengths）取值做为GRU输入
 
         output, hidden = self.gru(gru_input, hidden)#双向传播的话hidden有两个
+        temp=hidden[-1]
         if self.n_directions ==2:
             hidden_cat = torch.cat([hidden[-1], hidden[-2]], dim=1)
+            #hidden[-1]取
         else:
             hidden_cat = hidden[-1]
         fc_output = self.fc(hidden_cat)
