@@ -86,6 +86,7 @@ SGD随机梯度下降:https://zhuanlan.zhihu.com/p/27609238
 深度学习优化函数详解:https://blog.csdn.net/qq_26591517/article/details/79679192
 CrossEntropyLoss():https://zhuanlan.zhihu.com/p/98785902
 Embedding:http://t.zoukankan.com/zyb993963526-p-13785916.html
+        https://zhuanlan.zhihu.com/p/96085886
 文件处理：https://blog.csdn.net/laobai1015/article/details/91957436
 csv文件：https://blog.csdn.net/katyusha1/article/details/81606175
 

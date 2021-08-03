@@ -205,5 +205,40 @@ import torch
 # print(temp[-1].shape)
 # print(temp[-2].shape)
 
+#测试embedding
+# import torch
+# embedding = torch.nn.Embedding(10, 3)
+# input = torch.LongTensor([[1,2,4,5],[4,3,2,9]])
+# o=embedding(input)
+# print(o)
+# input = torch.LongTensor([[1,2,4,5],[4,3,2,9]])
+# input=input.t()
+# o=embedding(input)
+# print(o)
+#测试torch.cat
+# import torch
+# x = torch.randn(2, 3)
+# print(x)
+# t=torch.cat([x, x, x], 1)
+# print(t)
 
+#测试ord()
+# print(ord('a'))
 
+#补零测试
+# import torch
+# seq=torch.tensor([1,2,8,45])
+# seq_tensor = torch.zeros(10, 7).long()
+# print(seq_tensor)
+# seq_tensor[0,0:4]=seq_tensor[0,:4]=torch.LongTensor(seq)
+# print(seq_tensor)
+#
+# idx=torch.tensor([2,0,1,3,4,5,6,7,8,9])
+# seq_tensor=seq_tensor[idx]
+# print(seq_tensor)
+
+#测试max
+import torch
+a = torch.randn(3,3)
+print(a)
+print(a.max(1,keepdim=True)[1])

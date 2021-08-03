@@ -76,6 +76,7 @@ class RNNClassifier(torch.nn.Module):
         self.n_layers = n_layers
         self.n_directions = 2 if bidirectional else 1#双向rnn
 
+        #input_size为字符种类数128，hidden_size为自己希望编码的数量100
         self.embedding = torch.nn.Embedding(input_size, hidden_size)#input.shape=(seqlen,batch) output.shape=(seqlen,batch,hiddensize)
         self.gru = torch.nn.GRU(hidden_size, hidden_size, n_layers, bidirectional=bidirectional)
                                 #输入维度       输出维度      层数        说明单向还是双向
@@ -83,7 +84,7 @@ class RNNClassifier(torch.nn.Module):
         self.fc = torch.nn.Linear(hidden_size * self.n_directions, output_size)#双向GRU会输出两个hidden，维度需要✖2，要接一个线性层
 
     def forward(self, input, seq_lengths):
-        input = input.t()               #input shaoe :  Batch x Seq -> S x B 用于embedding
+        input = input.t()               #input shaoe :  Batch x Seq -> S x B 用于embedding，GRU要求的
         batch_size = input.size(1)
         hidden =self._init_hidden(batch_size)
         embedding = self.embedding(input)
@@ -97,8 +98,8 @@ class RNNClassifier(torch.nn.Module):
         output, hidden = self.gru(gru_input, hidden)#双向传播的话hidden有两个
         temp=hidden[-1]
         if self.n_directions ==2:
-            hidden_cat = torch.cat([hidden[-1], hidden[-2]], dim=1)
-            #hidden[-1]取
+            hidden_cat = torch.cat([hidden[-1], hidden[-2]], dim=1)#按第一个维度合并，第一个维度是embedding编码
+            #hidden[-1]取第0个维度的最后一个tensor，hidden[-2]取第0个维度的倒数第二个tensor
         else:
             hidden_cat = hidden[-1]
         fc_output = self.fc(hidden_cat)
@@ -137,11 +138,11 @@ def make_tensors(names, countries):     #处理名字ASCII码 重新排序的长
 def trainModel():
     total_loss = 0
 
-    for i, (names, countries) in enumerate(trainloader, 1):
+    for i, (names, countries) in enumerate(trainloader, 1):#可以改为0，是对i的给值(循环次数从0开始计数还是从1开始计数的问题)
         optimizer.zero_grad()
         inputs, seq_lengths, target = make_tensors(names, countries)#取出排序后的 ASCII列表 名字长度列表 国家名列表
         output = classifier(inputs, seq_lengths)    #把输入和序列放入分类器
-        loss = criterion(output, target)            #计算损失
+        loss = criterion(output, target)            #计算损失output 256,16  target 256
 
         loss.backward()#反向传播
         optimizer.step()#更新
@@ -166,7 +167,7 @@ def testModel():
         for i, (names, countries) in enumerate(testloader, 1):
             inputs, seq_lengths, target = make_tensors(names, countries)    #返回处理后的名字ASCII码 重新排序的长度和国家列表
             output = classifier(inputs, seq_lengths)                        #输出
-            pred = output.max(dim=1, keepdim=True)[1]                       #预测
+            pred = output.max(dim=1, keepdim=True)[1]#pred(256,1)            #预测,troch.max()[1]， 只返回最大值的每个索引,keepdim=True输出维度和输入的维度一致
             correct += pred.eq(target.view_as(pred)).sum().item()           #计算预测对了多少
 
         percent = '%.2f' % (100 * correct / total)
@@ -196,7 +197,7 @@ if __name__ == '__main__':
     print(datetime.timedelta(seconds=(end - start) // 1))
 
 
-    epoch = np.arange(1, len(acc_list) + 1, 1)
+    epoch = np.arange(1, len(acc_list) + 1, 1)#函数返回一个有终点和起点的固定步长的排列，如[1,2,3,4,5]，起点是1，终点是6，步长为1
     acc_list = np.array(acc_list)
     plt.plot(epoch, acc_list)
     plt.xlabel('Epoch')
